@@ -1,0 +1,5 @@
+query FindRepo {
+  repository(owner: "$owner", name: "$repo") {
+    id
+  }
+}

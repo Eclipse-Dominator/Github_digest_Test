@@ -13,6 +13,9 @@ with open("graphql/send_comment.graphql", "r") as f:
 with open("graphql/create_issue.graphql", "r") as f:
     createIssueStr = f.read()
 
+with open("graphql/find_repo_id.graphql", 'r') as f:
+    findRepoIdStr = Template(f.read())
+
 class GithubGraphQL:
     url = "https://api.github.com/graphql"
     headers = {
@@ -23,14 +26,19 @@ class GithubGraphQL:
 
     def __init__(self, token: str, owner:str, repo:str, timestamp: datetime, target_issue:str) -> None:
         self.headers["Authorization"] = f"token {token}"
+        self.owner = owner
         self.repo = repo
         self.timestamp = timestamp
         self.target_issue = target_issue
         self.complete = False
 
+    @property
+    def repo_repr(self):
+        return f"{self.owner}/{self.repo}"
+
     def generate_query(self, additional_queries: list[str]) -> dict:
         compiled_query = "{{\n{}\n{}}}".format(
-                query.substitute(repo = self.repo,
+                query.substitute(repo = self.repo_repr,
                     timestamp=self.timestamp.strftime("%Y-%m-%dT%H:%M:%SZ"),
                     cursor=self.cursor or "null"),
                 '\n'.join(additional_queries)
@@ -41,7 +49,6 @@ class GithubGraphQL:
 
     def run_query(self, additional_queries: list[str] = []) -> dict:
         request = requests.post(self.url, json=self.generate_query(additional_queries), headers=self.headers)
-        print(request.json())
         return request.json()
     
     def getResult(self) -> list[GitIssue]:
@@ -83,17 +90,28 @@ $details
         res = requests.post(self.url, json=payload, headers=self.headers)
         print(res.json())
 
+    def findRepoId(self) -> str:
+        payload = {
+            'query': findRepoIdStr.substitute(owner=self.owner, repo=self.repo)
+        }
+        res = requests.post(self.url, json=payload, headers=self.headers)
+        return res.json()["data"]["repository"]["id"]
+
     def createIssue(self):
         if self.target_issue:
+            # issue already exist
             return
-        
+        repo_id = self.findRepoId()
         payload = {
             'query': createIssueStr,
             'variables': {
-                'owner': owner,
-                'repo': repo,
-                'title': issue_title,
-                'body': issue_body
+                'repoId': repo_id,
+                'title': "Issues Digest",
+                'body': "Subscribe to this issue to receive a digest of all the issues in this repository."
             }
         }
+        res = requests.post(self.url, json=payload, headers=self.headers)
+        self.target_issue = res.json()["data"]["createIssue"]["issue"]["id"]
+
+
         

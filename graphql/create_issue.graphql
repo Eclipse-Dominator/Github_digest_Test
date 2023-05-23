@@ -1,5 +1,5 @@
-mutation ($owner: String!, $repo: String!, $title: String!, $body: String!) {
-  createIssue(input: { repositoryName: $repo, repositoryOwner: $owner, title: $title, body: $body }) {
+mutation ($repoId: ID!, $title: String!, $body: String!) {
+  createIssue(input: { repositoryId: $repoId, title: $title, body: $body }) {
     issue {
       id
       url
