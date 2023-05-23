@@ -1,0 +1,45 @@
+main: search(
+  first: 100
+  query: "repo:$repo is:issue updated:>=$timestamp"
+  type: ISSUE
+  after: $cursor
+) {
+  pageInfo {
+    endCursor
+    hasNextPage
+  }
+  nodes {
+    ... on Issue {
+      title
+      id
+      url
+      createdAt
+      author {
+        login
+      }
+      lastEditedAt
+      editor {
+        login
+      }
+  
+      comments(first: 100) {
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
+        nodes {
+          author {
+            login
+          }
+          url
+          createdAt
+          lastEditedAt
+          body
+          editor {
+            login
+          }
+        }
+      }
+    }
+  }
+}

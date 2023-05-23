@@ -1,0 +1,31 @@
+__typename
+title
+id
+url
+createdAt
+labels(first:100) {
+    pageInfo {
+        endCursor
+        hasNextPage
+    }
+    nodes {
+        createdAt
+        name
+    }
+}
+comments(first:100) {
+    pageInfo {
+        endCursor
+        hasNextPage
+    }
+    nodes{
+        author {
+            login
+        }
+        createdAt
+        lastEditedAt
+        editor {
+            login
+        }
+    }
+}
