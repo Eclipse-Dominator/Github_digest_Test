@@ -1,10 +1,18 @@
-mutation ($subjectId: ID!, $body: String!) {
+mutation ($subjectId: ID!, $body: String!, $update_body: String!) {
   addComment(input: { subjectId: $subjectId, body: $body }) {
     commentEdge {
       node {
         id
         body
       }
+    }
+  }
+
+  updateIssue(input: {id: $subjectId, body: $update_body}) {
+    issue {
+      number
+      title
+      body
     }
   }
 }

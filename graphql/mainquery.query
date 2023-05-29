@@ -13,6 +13,8 @@ main: search(
       title
       id
       url
+      number
+      body
       createdAt
       author {
         login
