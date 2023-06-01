@@ -11,22 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run script
-        env:
-          GIT_SECRET: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd .github
-          ./digest
-
-      - name: Push changes if there are changes to the data file
-        run: |
-          git config --local user.email "github-digest-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-digest-actions[bot]"
-          git add -f .github/digest.setting.json
-          git commit --allow-empty -m "Update digest setting"
-          git diff --quiet HEAD~ HEAD || git push
+      - name: Github Issues Digest
+        uses: Eclipse-Dominator/Github_Digest@v0.1.0-alpha
 
           
