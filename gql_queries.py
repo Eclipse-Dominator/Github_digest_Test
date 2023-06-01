@@ -20,6 +20,7 @@ def run_queries(queries: list[str]) -> dict:
         "query": f"{{{','.join([q for q in queries])}}}"
     }
     response = requests.post(url, json=payload, headers=headers)
+    print(response.json())
     return response.json()["data"]
 
 def run_mutations(queries: list[str]) -> dict:
@@ -28,6 +29,7 @@ def run_mutations(queries: list[str]) -> dict:
     }
 
     response = requests.post(url, json=payload, headers=headers)
+    print(response.json())
     return response.json()["data"]
 
 class GithubQuery:
@@ -46,6 +48,7 @@ class GithubQuery:
         }
 
         response = requests.post(url, json=payload, headers=headers)
+        print(response.json())
         return response.json()["data"]
 
     def partial_query(self, **kwargs) -> str:
