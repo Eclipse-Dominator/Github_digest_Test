@@ -20,3 +20,11 @@ jobs:
         run: |
           cd .github
           ./digest
+
+      - name: update changes if any
+        run: |
+          git config --local user.email "github-digest-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-digest-actions[bot]"
+          git add .github/digest.setting.json
+          git commit -m "Update digest setting"
+          git push
