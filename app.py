@@ -2,17 +2,26 @@ import json
 from digest_manager import  DigestManager
 import os
 
-if not os.path.exists("./digest.setting.json"):
+def create_digest_setting():
+    owner, repo = os.environ["GITHUB_REPOSITORY"].split("/")
     with open("digest.setting.json", 'w') as f:
         json.dump({
-            "owner": os.environ["GITHUB_REPOSITORY_OWNER"],
-            "repo": os.environ["GITHUB_REPOSITORY"],
+            "owner": owner,
+            "repo": repo,
             "target_issue": "",
             "ignore_list": []
         }, f, indent=4)
 
+if not os.path.exists("./digest.setting.json"):
+    create_digest_setting()
+
 with open("digest.setting.json", 'r') as f:
-    setting = json.load(f)
+    try:
+        setting = json.load(f)
+    except json.decoder.JSONDecodeError:
+        create_digest_setting()
+        with open("digest.setting.json", 'r') as f:
+            setting = json.load(f)
 
 ql = DigestManager(
     setting["owner"],
