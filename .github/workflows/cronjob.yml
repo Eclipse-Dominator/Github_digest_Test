@@ -5,11 +5,12 @@ on:
     - cron: '0 * * * *'
 
 jobs:
-  Create digests: 
+  Run_digest: 
     runs-on: ubuntu-latest
-
+    
+    steps:
       - name: Run script
-        with:
+        env:
           GIT_SECRET: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd .github
