@@ -21,10 +21,12 @@ jobs:
           cd .github
           ./digest
 
-      - name: update changes if any
+      - name: Push changes if there are changes to the data file
         run: |
           git config --local user.email "github-digest-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-digest-actions[bot]"
-          git add .github/digest.setting.json
-          git commit -m "Update digest setting"
-          git push
+          git add -f .github/digest.setting.json
+          git commit --allow-empty -m "Update digest setting"
+          git diff --quiet HEAD~ HEAD || git push
+
+          
