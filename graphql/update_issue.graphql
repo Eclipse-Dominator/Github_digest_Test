@@ -1,0 +1,5 @@
+updateIssue(input: {id: "$issue_id", body: "$issue_body"}) {
+    issue {
+        id
+    }
+}

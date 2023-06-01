@@ -1,24 +1,16 @@
-name: Github Digest Cron Job 
+name: Digest Summarizer
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Set the cron schedule here
+    - cron: '0 * * * *'
 
 jobs:
-  cron_job:
+  Create digests: 
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Run script
         with:
-          python-version: '3.11' 
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt 
-
-      - name: Run Python script
-        run: python ./app.py
+          GIT_SECRET: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd .github
+          ./digest

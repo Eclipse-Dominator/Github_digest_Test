@@ -1,0 +1,9 @@
+node(id: "$issue_id") {
+  ... on Issue {
+    comments(last: 1) {
+      nodes {
+        createdAt
+      }
+    } 
+  }
+}

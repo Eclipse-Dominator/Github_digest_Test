@@ -1,7 +1,0 @@
-{
-    node(id: "$issue_id") {
-      ... on Issue {
-        body
-        }
-    }
-}

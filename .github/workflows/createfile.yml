@@ -1,0 +1,33 @@
+name: Create runner file
+
+on: workflow_dispatch
+
+jobs:
+    Build application:
+        runs-on: ubuntu-latest
+    
+    step:
+        - name: Checkout repository
+        uses: actions/checkout@v2
+
+        - name: Install python
+        uses: actions/setup-python@v2
+        with:
+            python-version: 3.11
+        
+        - name: Install dependencies
+        run: |
+            pip install -r requirements.txt
+
+        - name: Build application
+        run: |
+            pyinstaller --onefile app.py
+            mv dist/app .github/digest
+
+        - name: Commit build application
+        run: |
+            git config --local user.email "github-digest-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-digest-actions[bot]"
+            git add .github/digest
+            git commit -m "Build github digest application"
+            git push

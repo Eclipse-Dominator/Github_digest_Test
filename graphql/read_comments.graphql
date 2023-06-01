@@ -1,0 +1,22 @@
+resource(url: "$url") {
+    ... on Issue {
+        comments(first:100, after: "$cursor") {
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+            nodes{
+                author {
+                    login
+                }
+                url
+                createdAt
+                lastEditedAt
+                body
+                editor {
+                    login
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-main: search(
+search(
   first: 100
   query: "repo:$repo is:issue updated:>=$timestamp"
   type: ISSUE

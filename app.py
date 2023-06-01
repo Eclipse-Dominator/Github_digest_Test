@@ -1,13 +1,20 @@
 import json
-from GithubGraphQL import  GithubGraphQL
-from datetime import datetime
+from digest_manager import  DigestManager
+import os
 
+if not os.path.exists("./digest.setting.json"):
+    with open("digest.setting.json", 'w') as f:
+        json.dump({
+            "owner": os.environ["GITHUB_REPOSITORY_OWNER"],
+            "repo": os.environ["GITHUB_REPOSITORY"],
+            "target_issue": "",
+            "ignore_list": []
+        }, f, indent=4)
 
-with open("digest.setting.json", 'r+') as f:
+with open("digest.setting.json", 'r') as f:
     setting = json.load(f)
 
-ql = GithubGraphQL(
-    setting["token"],
+ql = DigestManager(
     setting["owner"],
     setting["repo"],
     setting["target_issue"],
@@ -17,7 +24,6 @@ ql = GithubGraphQL(
 issues = ql.get_result()
 ql.send_data(issues)
 
-# setting["last_update_time"] = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 setting["target_issue"] = ql.target_issue
 setting["ignore_list"] = ql.ignore_numbers
 
