@@ -12,6 +12,6 @@ jobs:
     
     steps:
       - name: Github Issues Digest
-        uses: Eclipse-Dominator/Github_Digest@v0.1.3d-alpha
+        uses: Eclipse-Dominator/Github_Digest@v0.1.4-alpha
 
           
