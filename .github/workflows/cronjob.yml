@@ -12,6 +12,6 @@ jobs:
     
     steps:
       - name: Github Issues Digest
-        uses: Eclipse-Dominator/Github_Digest@dynamic_trimming
+        uses: Eclipse-Dominator/Github_Digest@remove-trimming-behavior
 
           
