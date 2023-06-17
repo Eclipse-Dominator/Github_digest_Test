@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Github Issues Digest
-        uses: Eclipse-Dominator/Github_Digest@remove-trimming-behavior
+      - name: Run Issue Digest Action
+        uses: nus-oss/GithubDigest@master
+          with:
+            timezone: "Singapore"
 
           
