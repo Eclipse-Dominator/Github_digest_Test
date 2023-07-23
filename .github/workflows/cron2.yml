@@ -1,4 +1,4 @@
-name: Digest Summarizer
+name: Digest Summarizer 2
 
 on:
   schedule:
