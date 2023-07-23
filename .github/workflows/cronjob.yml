@@ -12,7 +12,7 @@ jobs:
     
     steps:
       - name: Run Issue Digest Action
-        uses: Eclipse-Dominator/GithubDigest@29-allow-multiple-digests-in-the-same-repo
+        uses: nus-oss/GithubDigest@master
         with:
             timezone: "Singapore"
 
