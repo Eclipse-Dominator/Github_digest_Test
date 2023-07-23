@@ -12,7 +12,7 @@ jobs:
     
     steps:
       - name: Run Issue Digest Action
-        uses: nus-oss/GithubDigest@master
+        uses: Eclipse-Dominator/GithubDigest@auto-lock-issue
         with:
             timezone: "Singapore"
 
