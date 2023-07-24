@@ -9,10 +9,7 @@ on:
 jobs:
   issue-digest:
     runs-on: ubuntu-latest
-    
-    permissions:
-      issues: write
-      
+
     steps:
       - name: Run Issue Digest Action
         uses: nus-oss/GithubDigest@master
