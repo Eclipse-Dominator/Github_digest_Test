@@ -7,14 +7,15 @@ on:
   
 
 jobs:
-  Run_digest: 
+  issue-digest:
     runs-on: ubuntu-latest
     
+    permissions:
+      issues: write
+      
     steps:
       - name: Run Issue Digest Action
         uses: nus-oss/GithubDigest@master
         with:
-            repo: "teammates/TEAMMATES"
-            timezone: "Singapore"
-
-          
+          repo: "teammates/TEAMMATES"
+          timezone: "Singapore"
