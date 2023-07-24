@@ -14,7 +14,7 @@ jobs:
       - name: Run Issue Digest Action
         uses: nus-oss/GithubDigest@master
         with:
-            repo: "Eclipse-Dominator/Digest_tester"
+            repo: "teammates/TEAMMATES"
             timezone: "Singapore"
 
           
