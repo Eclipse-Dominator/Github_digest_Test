@@ -12,7 +12,7 @@ jobs:
     
     steps:
       - name: Run Issue Digest Action
-        uses: Eclipse-Dominator/GithubDigest@34-remove-mentions-from-the-digest
+        uses: Eclipse-Dominator/GithubDigest@33-tweak-opening-message
         with:
             timezone: "Singapore"
 
